@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>إتمام الحجز - تفاصيل التذكرة</title>
+    <link rel="stylesheet" href="stylelog.css"> <style>
+        .ticket-box { background: #fff; width: 450px; padding: 30px; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); margin: 50px auto; }
+        .input-field { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ccc; }
+        .btn-confirm { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="ticket-box">
+        <h2>تفاصيل المسافر والتذكرة</h2>
+        <form id="ticketForm">
+            <input type="text" name="p_firstname" class="input-field" placeholder="الاسم الأول للمسافر" required>
+            <input type="text" name="p_lastname" class="input-field" placeholder="الكنية" required>
+            <input type="text" name="passport" class="input-field" placeholder="رقم جواز السفر" required>
+            <input type="text" name="seat" class="input-field" placeholder="رقم المقعد (مثلاً: 12A)" required>
+            
+            <p>إجمالي المبلغ: <strong id="displayPrice">0</strong>$</p>
+            
+            <button type="submit" class="btn-confirm">تأكيد الحجز وإصدار التذكرة</button>
+        </form>
+    </div>
+
+    <script>
+        // جلب السعر من الرابط وعرضه
+        const urlParams = new URLSearchParams(window.location.search);
+        const price = urlParams.get('price');
+        document.getElementById('displayPrice').innerText = price;
+
+        document.getElementById('ticketForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            formData.append('total_amount', price);
+
+            fetch('process_ticket.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    alert("تم الحجز بنجاح وإصدار التذكرة رقم: " + data.ticket_id);
+                    window.location.href = 'index.html';
+                } else {
+                    alert("خطأ: " + data.message);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

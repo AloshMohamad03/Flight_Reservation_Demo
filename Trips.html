@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Trips Page - الرحلات</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* توحيد ستايل الصفحة مع بقية الموقع */
+        body {
+            margin: 0;
+            background: #eef1f5;
+            font-family: sans-serif;
+            padding-top: 80px;
+            /* مساحة للنافبار الثابت */
+        }
+
+        /* --- النافبار الموحد --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 50px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .navbar .center {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar .iconc {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .navbar .iconc:hover {
+            color: #1f2bca;
+        }
+
+        .logo {
+            height: 50px;
+        }
+
+        /* --- قسم البحث الموحد --- */
+        .search-container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .search-box input,
+        .search-box select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .search-box button {
+            padding: 10px 25px;
+            background: #1f2bca;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- تنسيق بطاقة الرحلة --- */
+        .trips-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .trip-card {
+            width: 250px;
+            transition: all 0.4s ease-in-out;
+            overflow: hidden;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            border-right: 5px solid #1f2bca;
+        }
+
+        .trip-card.expanded {
+            transform: scale(1.01);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .more-info {
+            display: none;
+            padding: 20px;
+            background: #fcfcfc;
+            border-top: 1px solid #eee;
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .expanded .more-info {
+            display: block;
+        }
+
+        .flight-class-select {
+            width: 100%;
+            padding: 8px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            background: #f9f9f9;
+        }
+
+        /* الأزرار */
+        .details-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .book-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .right-user {
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="body_trips">
+    <nav class="navbar">
+        <img src="image/1845c0d96_logo.png" class="logo" alt="Logo">
+        <div class="center">
+            <div class="icon"><a href="index.html" class="iconc">Home</a></div>
+            <div class="icon"><a href="Trips.html" class="iconc">Trips</a></div>
+            <div class="icon"><a href="Reservations.html" class="iconc">Reservations</a></div>
+            <div class="icon"><a href="AboutUS.html" class="iconc">About US</a></div>
+        </div>
+        <div id="userArea">
+            <a href="loginReg.html" class="right-user" id="userBox">Login</a>
+        </div>
+    </nav>
+
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" id="fromCity" placeholder="From">
+            <input type="text" id="toCity" placeholder="To">
+            <input type="date" id="tripDate">
+            <select id="tripClass">
+                <option value="" hidden>Class</option>
+                <option>First Class</option>
+                <option>Business</option>
+                <option>Economy</option>
+            </select>
+            <button onclick="searchTrips()">Search</button>
+        </div>
+    </div>
+
+    <div class="trips-wrapper" id="tripsList">
+        <div class="trip-card">
+            <div class="trip-img"
+                style="background-image:url('image/images.jpeg'); height: 150px; background-size: cover; background-position: center;">
+            </div>
+            <div class="trip-info" style="padding: 20px;">
+                <h3 class="route" style="margin-top:0;">Damascus → Dubai</h3>
+                <p style="color:#777;">Date: <span class="date">2025-01-10</span></p>
+                <p style="font-size: 1.2em;">Price: <strong style="color: #1f2bca;">$<span
+                            class="amount">320</span></strong></p>
+
+                <select class="flight-class-select" onchange="updateTripPrice(this)">
+                    <option value="320" selected>Economy - $320</option>
+                    <option value="550">Business - $550</option>
+                    <option value="900">First Class - $900</option>
+                </select>
+            </div>
+
+            <div class="more-info">
+                <p><strong>Flight Details:</strong>Fly from the heart of history in Damascus to the futuristic skyline
+                    of Dubai. This flight offers a premium dining experience and the flexibility of one free booking
+                    change. Sit back, relax, and enjoy our world-class hospitality throughout your journey to the city
+                    of gold </p>
+            </div>
+
+            <div class="trip-actions" style="padding: 15px; border-top: 1px solid #f5f5f5; text-align: right;">
+                <button class="details-btn" onclick="toggleTripDetails(this)">Details</button>
+                <button class="book-btn" onclick="goToBooking(this)">Book Now</button>
+            </div>
+        </div>
+        <div class="trip-card">
+            <div class="trip-img"
+                style="background-image:url('image/image2s\ \(1\).jpeg'); height: 150px; background-size: cover; background-position: center;">
+            </div>
+            <div class="trip-info" style="padding: 20px;">
+                <h3 class="route" style="margin-top:0;">London → Aman</h3>
+                <p style="color:#777;">Date: <span class="date">2025-01-10</span></p>
+                <p style="font-size: 1.2em;">Price: <strong style="color: #1f2bca;">$<span
+                            class="amount">120</span></strong></p>
+
+                <select class="flight-class-select" onchange="updateTripPrice(this)">
+                    <option value="120" selected>Economy - $120</option>
+                    <option value="400">Business - $400</option>
+                    <option value="1000">First Class - $1000</option>
+                </select>
+            </div>
+
+            <div class="more-info">
+                <p><strong>Flight Details:</strong>Embark on a seamless journey from London to the ancient hills of
+                    Amman. Your trip includes two gourmet meals and a complimentary date modification option. Experience
+                    superior comfort and exceptional service as we bridge the gap between these two historic capitals.
+                </p>
+            </div>
+
+            <div class="trip-actions" style="padding: 15px; border-top: 1px solid #f5f5f5; text-align: right;">
+                <button class="details-btn" onclick="toggleTripDetails(this)">Details</button>
+                <button class="book-btn" onclick="goToBooking(this)">Book Now</button>
+            </div>
+        </div>
+        <div class="trip-card">
+            <div class="trip-img"
+                style="background-image:url('image/imag2es.jpeg'); height: 150px; background-size: cover; background-position: center;">
+            </div>
+            <div class="trip-info" style="padding: 20px;">
+                <h3 class="route" style="margin-top:0;">Paris → Al Sharjah</h3>
+                <p style="color:#777;">Date: <span class="date">2025-01-10</span></p>
+                <p style="font-size: 1.2em;">Price: <strong style="color: #1f2bca;">$<span
+                            class="amount">100</span></strong></p>
+
+                <select class="flight-class-select" onchange="updateTripPrice(this)">
+                    <option value="100" selected>Economy - $100</option>
+                    <option value="480">Business - $480</option>
+                    <option value="700">First Class - $700</option>
+                </select>
+            </div>
+
+            <div class="more-info">
+                <p><strong>Flight Details:</strong>Travel from the romantic streets of Paris to the cultural hub of
+                    Sharjah. Enjoy a stress-free flight with inclusive meal services and a one-time free adjustment to
+                    your itinerary. Our cabin crew is dedicated to ensuring your comfort from takeoff to landing. </p>
+            </div>
+
+            <div class="trip-actions" style="padding: 15px; border-top: 1px solid #f5f5f5; text-align: right;">
+                <button class="details-btn" onclick="toggleTripDetails(this)">Details</button>
+                <button class="book-btn" onclick="goToBooking(this)">Book Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // كود الجافا سكريبت كما هو لضمان الفعالية
+        document.addEventListener('DOMContentLoaded', () => {
+            const userArea = document.getElementById('userArea');
+            const user = JSON.parse(localStorage.getItem('loggedUser'));
+            if (user) {
+                userArea.innerHTML = `<span class="right-user">${user.name}</span>`;
+            }
+        });
+
+        function updateTripPrice(select) {
+            const price = select.value;
+            select.closest('.trip-card').querySelector('.amount').innerText = price;
+        }
+
+        function toggleTripDetails(btn) {
+            const card = btn.closest('.trip-card');
+            card.classList.toggle('expanded');
+            btn.innerText = card.classList.contains('expanded') ? "Close" : "Details";
+        }
+
+        function goToBooking(btn) {
+            const user = localStorage.getItem('loggedUser');
+            if (!user) {
+                alert("عليك تسجيل الدخول أولاً!");
+                window.location.href = 'loginReg.html';
+                return;
+            }
+            const card = btn.closest('.trip-card');
+            const price = card.querySelector('.amount').innerText;
+            const route = card.querySelector('.route').innerText;
+            window.location.href = `ticket.html?price=${price}&route=${encodeURIComponent(route)}`;
+        }
+
+        function searchTrips() {
+            const from = document.getElementById('fromCity').value;
+            const to = document.getElementById('toCity').value;
+            if (!from || !to) {
+                alert("الرجاء تحديد الوجهة");
+                return;
+            }
+            alert(`جاري البحث عن رحلات من ${from} إلى ${to}...`);
+        }
+    </script>
+</body>
+
+</html>

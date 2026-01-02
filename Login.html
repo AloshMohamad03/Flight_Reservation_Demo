@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="stylelog.css">
+    <style>
+        /* التنسيقات الخاصة بك كما هي تماماً */
+        body {
+            margin: 0;
+            padding: 0;
+            background: #e9eff3;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-box {
+            background: #fff;
+            width: 320px;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .login-box h2 {
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid #bbb;
+            font-size: 15px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: #005fcc;
+        }
+
+        .bottom-text {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .bottom-text a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        /* أضفت لك تنسيقاً بسيطاً لرسائل الخطأ والنجاح ليتناسب مع تصميمك */
+        #msg {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: none;
+            /* مخفي افتراضياً */
+        }
+    </style>
+</head>
+
+<body class="body_login">
+
+    <div class="login-box">
+        <h2>Login</h2>
+
+        <div id="msg"></div>
+        <form id="loginForm"> <input type="email" class="input-field" name="email" placeholder="Email" required>
+            <input type="password" class="input-field" name="password" placeholder="Password" required>
+            <button class="btn" type="submit">Sign In</button>
+        </form>
+        <div class="bottom-text">
+            Don't have an account? <a href="signup.html">Sign Up</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const msgDiv = document.getElementById('msg');
+            const formData = new FormData(this);
+
+            fetch('login.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                msgDiv.style.display = 'block';
+                msgDiv.innerText = data.message;
+
+                if (data.status === 'success') {
+                    msgDiv.style.background = '#d4edda';
+                    msgDiv.style.color = '#155724';
+                    msgDiv.style.border = '1px solid #c3e6cb';
+
+                    // --- الجزء الجديد لتخزين بيانات المستخدم ---
+                    if (data.user) {
+                        localStorage.setItem('loggedUser', JSON.stringify({
+                            name: data.user.name,
+                            email: data.user.email,
+                            role: data.user.role
+                        }));
+                    }
+                    // ---------------------------------------
+
+                    setTimeout(() => {
+                        window.location.href = data.redirect; 
+                    }, 1500);
+                } else {
+                    msgDiv.style.background = '#f8d7da';
+                    msgDiv.style.color = '#721c24';
+                    msgDiv.style.border = '1px solid #f5c6cb';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                msgDiv.style.display = 'block';
+                msgDiv.innerText = "حدث خطأ في الاتصال";
+            });
+        });
+    </script>
+
+</body>
+
+</html>

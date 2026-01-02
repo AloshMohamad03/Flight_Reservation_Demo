@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>About Us</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #eef1f5;
+            font-family: sans-serif;
+        }
+
+        /* --- تعديل لضمان ظهور الـ Navbar بشكل سليم --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 50px;
+            background: #fff; /* أضفت خلفية بيضاء لضمان الوضوح */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .navbar .center {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar .iconc {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* ///////////////////////////////////////////////////// AboutUs.css */
+        .container {
+            position: relative;
+            width: 700px;
+            text-align: center;
+            margin-top: 80px; /* لإعطاء مساحة تحت الـ Navbar */
+        }
+
+        .cards {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card:hover .text {
+            visibility: hidden;
+            transform: scale(1.2);
+        }
+
+        .card {
+            width: 180px;
+            height: 250px;
+           /* تأكد من المسار الصحيح */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 20px;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            font-weight: bold;
+            color: #ffffff;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: 0.8s ease;
+            opacity: 0.9;
+        }
+
+        .text {
+            padding-top: 120px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* تحسين وضوح النص فوق الصورة */
+        }
+
+        .card.center {
+            transform: translateZ(80px) scale(1.1);
+            opacity: 1;
+            z-index: 10;
+        }
+
+        .card.left1 { transform: translateX(-160px) rotateY(25deg); }
+        .card.left2 { transform: translateX(-280px) rotateY(45deg) scale(0.95); opacity: 0.55; }
+        .card.right1 { transform: translateX(160px) rotateY(-25deg); }
+        .card.right2 { transform: translateX(280px) rotateY(-45deg) scale(0.95); opacity: 0.55; }
+
+        button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 12px 28px;
+            background: rgba(31, 43, 202, 0.616);
+            border-radius: 12px;
+            border: none;
+            font-size: 22px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: 0.2s ease;
+            z-index: 100;
+        }
+
+        button:hover { transform: scale(1.05) translateY(-50%); }
+        #prev { left: -150px; }
+        #next { right: -120px; }
+
+        /* ستايل لاسم المستخدم عند تسجيل الدخول */
+        .user-logged {
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="body_aboutus">
+    <div class="navbar">
+        <img src="image/1845c0d96_logo.png" class="logo" alt="Logo" style="height: 50px;">
+        <div class="center">
+            <div class="icon"><a href="index.html" class="iconc">Home</a></div>
+            <div class="icon"><a href="Trips.html" class="iconc">Trips</a></div>
+            <div class="icon"><a href="Reservations.html" class="iconc">Reservations</a></div>
+            <div class="icon"><a href="AboutUS.html" class="iconc">About US</a></div>
+        </div>
+        
+        <div id="userSection">
+            <a href="loginReg.html" class="right-user" id="userBox">Login</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
+
+        <div class="cards" id="cards">
+            <div class="card" style=" background-image: url('image/ali.jpg'); ">
+                <div class="text">Ali Mahmoud Mohamad <br> <h5>Developed AI Code</h5></div>
+            </div>
+            <div class="card" style=" background-image: url('image/IMG-20260102-WA0003.jpg'); ">
+                <div class="text">Hanin Emad Hasan <br> <h5>Configured Network Software</h5></div>
+            </div>
+            <div class="card" style=" background-image: url(''); ">
+                <div class="text">Hadi Ebraheem Mohamad <br> <h5>Engineered Software Structures</h5></div>
+            </div>
+            <div class="card" style=" background-image: url('image/IMG-20260101-WA0004.jpg'); ">
+                <div class="text">Hadi Qusai Mostafa <br> <h5>Managed Database Systems</h5></div>
+            </div>
+            <div class="card" style=" background-image: url('image/IMG-20260101-WA0003.jpg'); ">
+                <div class="text">Maya Anmar Mohamad <br> <h5>Formatted Project Documentation</h5></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. منطق الـ Carousel (كودك الأصلي) ---
+        const cards = [...document.querySelectorAll(".card")];
+        const positions = ["center", "left1", "left2", "right1", "right2"];
+
+        function render() {
+            cards.forEach((card, i) => {
+                card.className = "card " + positions[i];
+            });
+        }
+
+        function next() {
+            positions.unshift(positions.pop());
+            render();
+        }
+
+        function prev() {
+            positions.push(positions.shift());
+            render();
+        }
+
+        document.getElementById("next").onclick = next;
+        document.getElementById("prev").onclick = prev;
+        render();
+        setInterval(() => next(), 3000);
+
+        // --- 2. منطق التحقق من تسجيل الدخول (الإضافة الجديدة) ---
+        window.onload = function() {
+            const userSection = document.getElementById('userSection');
+            const storedUser = localStorage.getItem('loggedUser');
+
+            if (storedUser) {
+                const user = JSON.parse(storedUser);
+                userSection.innerHTML = `<a href="#" class="user-logged">Hi, ${user.name}</a>`;
+            }
+        };
+    </script>
+</body>
+</html>

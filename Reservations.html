@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservations - حجوزاتي</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* توحيد ستايل الصفحة مع بقية الموقع */
+        body {
+            margin: 0;
+            background: #eef1f5;
+            font-family: sans-serif;
+            padding-top: 80px; /* مساحة للنافبار الثابت */
+        }
+
+        /* --- النافبار الموحد (نفس About Us) --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 50px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .navbar .center {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar .iconc {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .navbar .iconc:hover { color: #1f2bca; }
+
+        .logo { height: 50px; }
+
+        /* --- تنسيق الحاويات والبطاقات --- */
+        .container_rese {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .card_rese {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-right: 5px solid #1f2bca; /* لمسة جمالية بلون الهوية */
+        }
+
+        .row_rese {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .title_rese { font-weight: bold; color: #333; font-size: 1.1em; }
+
+        /* حالات الحجز */
+        .status_rese { padding: 5px 12px; border-radius: 20px; font-size: 0.85em; font-weight: bold; }
+        .confirmed_rese { background: #d4edda; color: #155724; }
+        .pending_rese { background: #f8d7da; color: #721c24; }
+
+        /* الأزرار الموحدة */
+        .actions_rese { display: flex; gap: 10px; margin-top: 15px; }
+        .btn_rese {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-details_rese { background: #1f2bca; color: white; }
+        .btn-cancel_rese { background: #dc3545; color: white; }
+        .btn_rese:hover { opacity: 0.85; transform: translateY(-2px); }
+
+        .right-user {
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="body_rese">
+    <nav class="navbar">
+        <img src="image/1845c0d96_logo.png" class="logo" alt="Logo">
+        <div class="center">
+            <div class="icon"><a href="index.html" class="iconc">Home</a></div>
+            <div class="icon"><a href="Trips.html" class="iconc">Trips</a></div>
+            <div class="icon"><a href="Reservations.html" class="iconc">Reservations</a></div>
+            <div class="icon"><a href="AboutUS.html" class="iconc">About US</a></div>
+        </div>
+        <div id="userArea">
+            <a href="loginReg.html" class="right-user" id="userBox">Login</a>
+        </div>
+    </nav>
+
+    <div class="container_rese" id="reservationsList">
+        <p style="text-align: center; color: #333;">جاري تحميل حجوزاتك...</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. تحديث الهيدر باسم المستخدم
+            const userData = JSON.parse(localStorage.getItem('loggedUser'));
+            if (userData) {
+                document.getElementById('userArea').innerHTML = `<span class="right-user">${userData.name}</span>`;
+            } else {
+                alert("يرجى تسجيل الدخول أولاً");
+                window.location.href = 'loginReg.html';
+                return;
+            }
+
+            // 2. جلب الحجوزات من السيرفر
+            fetchMyReservations();
+        });
+
+        function fetchMyReservations() {
+            fetch('get_my_bookings.php')
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById('reservationsList');
+                list.innerHTML = '';
+
+                if (data.status === 'success' && data.bookings.length > 0) {
+                    data.bookings.forEach(res => {
+                        const statusClass = res.TicketStatus === 'Active' ? 'confirmed_rese' : 'pending_rese';
+                        const statusText = res.TicketStatus === 'Active' ? 'Cancelled' : 'Confirmed';
+
+                        list.innerHTML += `
+                            <div class="card_rese" id="ticket-${res.TicketID}">
+                                <div class="row_rese">
+                                    <div class="title_rese">Ticket#${res.TicketID} - ${res.PassengerFirstName}</div>
+                                    <div class="status_rese ${statusClass}">${statusText}</div>
+                                </div>
+                                <div class="row_rese">
+                                    <span><strong>Boohing Date :</strong> ${res.BookingDate}</span>
+                                    <span><strong>Seat:</strong> ${res.SeatNumber}</span>
+                                </div>
+                                <div class="row_rese">
+                                    <span><strong>Flight Class:</strong> ${res.TicketStatus}</span>
+                                    <span><strong>Price:</strong> ${res.TotalAmount}$</span>
+                                </div>
+                                <div class="actions_rese">
+                                    <button class="btn_rese btn-details_rese" onclick="editSeat(${res.TicketID}, '${res.SeatNumber}')">Seat Adjustment</button>
+                                    <button class="btn_rese btn-cancel_rese" onclick="cancelTicket(${res.TicketID})">Cancellation of resevation</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    list.innerHTML = '<div class="card_rese"><p style="text-align:center">You have no current reservations.</p></div>';
+                }
+            });
+        }
+
+        function cancelTicket(id) {
+            if (confirm("هل أنت متأكد من رغبتك في إلغاء هذا الحجز؟")) {
+                fetch('cancel_booking.php?id=' + id)
+                .then(res => res.json())
+                .then(data => {
+                    alert(data.message);
+                    fetchMyReservations();
+                });
+            }
+        }
+
+        function editSeat(id, oldSeat) {
+            const newSeat = prompt("أدخل رقم المقعد الجديد:", oldSeat);
+            if (newSeat && newSeat !== oldSeat) {
+                const formData = new FormData();
+                formData.append('ticket_id', id);
+                formData.append('new_seat', newSeat);
+
+                fetch('update_booking.php', { method: 'POST', body: formData })
+                .then(res => res.json())
+                .then(data => {
+                    alert(data.message);
+                    fetchMyReservations();
+                });
+            }
+        }
+    </script>
+</body>
+</html>

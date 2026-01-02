@@ -1,0 +1,440 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f3f6;
+}
+
+.texthero {
+    color: hsl(180, 100%, 97%);
+    width: 50%;
+    height: 30%;
+    background-color: rgba(0, 0, 0, 0.37);
+    border-radius: 20px;
+    position: absolute;
+    left: 25%;
+    top: 30%;
+    text-align: center;
+    font-size: 22px;
+    bottom: 0%;
+    padding-bottom: 5%;
+}
+
+.texthero button {
+    width: 25%;
+    height: 25%;
+    font-size: 18px;
+    border: none;
+    border-radius: 15px;
+    background-color: rgb(19, 236, 55);
+    color: white;
+    cursor: pointer;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    animation: run linear 1.5s infinite normal forwards;
+}
+
+@keyframes run {
+    0% {
+        transform: translateY(0px);
+
+    }
+
+    50% {
+        transform: translateY(10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.texthero-h2 {
+    font-size: 24px;
+    background-color: rgba(240, 248, 255, 0.411);
+    color: black;
+    border-radius: 50px;
+    margin-left: 22%;
+    margin-right: 22%;
+    margin-top: 3%;
+}
+
+.carousel {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    /* background: #2e58b1; */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0% 1%;
+    z-index: 100;
+    box-shadow: 0 3px 12px rgba(131, 125, 125, 0.22);
+}
+
+.logo {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0% 1%;
+}
+
+.right-user {
+    margin: 0% 1%;
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1e293b;
+    cursor: pointer;
+    color: #ddd;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* الأيقونات الوسط */
+.center {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.icon {
+    color: #0b105a;
+    font-size: 22px;
+    cursor: pointer;
+
+}
+
+.iconc {
+    color: rgb(10, 16, 97);
+    text-decoration: none;
+    transition: 0.2s;
+
+}
+
+.iconc:hover {
+    text-decoration: none;
+    color: hsl(0, 0%, 83%);
+    transform: translateY(-2px);
+
+}
+
+/* /////////////// boxes//////////////////// */
+
+.grid1 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10%;
+    margin: 6% 5%;
+}
+
+.box {
+    background: rgba(255, 254, 254, 0.274);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid blanchedalmond;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.box img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.price {
+    margin: 6px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #0f172a;
+}
+
+select {
+    width: 90%;
+    padding: 6px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #504646;
+    font-size: 14px;
+}
+
+.btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    flex: 1;
+    transition: 0.3s
+}
+
+.details {
+    border: 1px solid black;
+    background: #154facf8;
+    color: white;
+}
+
+.book {
+    border: 1px solid black;
+    background: #0c770c;
+    color: rgb(255, 255, 255);
+}
+
+/* Phone */
+@media (max-width:850px) {
+    .grid1 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width:500px) {
+    .grid1 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/*////////////// ////////////////////////reservation.css */
+.body_rese {
+    background-image: url(./image/passport-airplane-air-ticket-blue_130265-7418.avif);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+}
+
+.body_trips {
+    background-image: url(./image/plane-air-ticket-woman-hand-blue_130265-4105.avif);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.body_home {
+    background-image: url(./image/home_png.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.body_aboutus {
+    background-image: url(./image/teamwork-arabic.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.container_rese {
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.card_rese {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.row_rese {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.row_rese span {
+    font-size: 15px;
+    color: #475569;
+}
+
+.title_rese {
+    font-size: 19px;
+    font-weight: bold;
+    color: #0f172a;
+}
+
+.status_rese {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    width: max-content;
+    color: white;
+}
+
+.confirmed_rese {
+    background: #10b981;
+}
+
+.pending_rese {
+    background: #f59e0b;
+}
+
+.canceled_rese {
+    background: #ef4444;
+}
+
+.btn_rese {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    width: max-content;
+}
+
+.btn-details_rsee {
+    background: #3b82f6;
+    color: white;
+}
+
+.btn-cancel_rese {
+    background: #ef4444;
+    color: white;
+}
+
+.actions_rese {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* ///////////////////// trip.css */
+
+.search-container {
+    background: white;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-box input,
+.search-box select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    flex: 1;
+    min-width: 100px;
+}
+
+.search-box button {
+    background: #007bff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.search-box button:hover {
+    background: #005fcc;
+}
+
+/* ===== Trip Cards ===== */
+.trips-wrapper {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.trip-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: 0.2s;
+}
+
+.trip-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.trip-img {
+    width: 100%;
+    height: 140px;
+    background: #e1e1e1;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background-size: cover;
+    background-position: center;
+}
+
+.trip-info {
+    margin-bottom: 10px;
+}
+
+.trip-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.trip-actions button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.details-btn {
+    background: #28a745;
+    color: white;
+}
+
+.details-btn:hover {
+    background: #1f7e32;
+}
+
+.book-btn {
+    background: #ff5722;
+    color: white;
+}
+
+.book-btn:hover {
+    background: #e0491c;
+}
+
+/* ///////// regestration.css */

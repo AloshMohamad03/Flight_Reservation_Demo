@@ -1,0 +1,128 @@
+body{
+  background-image: url(./images/travel-tips-long-haul-flights.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.body_reg{
+   background-image: url(./images/waiting-room-airport-terminal_802140-981.avif);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.body_login{
+    background-image: url(./images/wait2.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.signup-box {
+    background: #fff;
+    width: 340px;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.signup-box h2 {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #333;
+}
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #bbb;
+    font-size: 15px;
+}
+.btn {
+    width: 100%;
+    padding: 12px;
+    background: #28a745;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #1f8a38;
+}
+
+.bottom-text {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #444;
+}
+
+.bottom-text a {
+    color: #28a745;
+    text-decoration: none;
+}
+.container {
+  width: 30%;
+  height: 30%;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+  border: 2px solid black;
+  background-image: url(./images/place-flying-sunset-sky_1112-1132.avif);
+  background-position: center;
+  color: white;
+  animation-name: move;
+  animation-timing-function: ease-out;
+  animation-duration:1s; 
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+@keyframes move {
+  0% {
+    transform: translate(-50%, -150%);
+  }
+  100% {
+    transform: translate(-50% , -50%);
+  }
+}
+
+.container h1 {
+  padding: 3%;
+  text-align: center;
+  margin-top: 5%;
+}
+
+.button-container {
+  padding: 3%;
+  text-align: center;
+}
+
+.button {
+  font-size: large;
+  padding: 2%;
+  color: wheat;
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid black;
+  background-color: rgba(0, 174, 255, 0.322);
+  border-radius: 12px;
+  margin: 3%;
+  transition: 0.5s;
+}
+
+.button:hover {
+  color: green;
+  background-color: rgba(255, 255, 255, 0.767);
+  transform: scaleX(1.2);
+}
+/* //////////الصفحة الرئيسية//////// */
